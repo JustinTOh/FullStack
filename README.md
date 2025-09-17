@@ -2,3 +2,4 @@
 Full stack project  
 Have node v22.19.0 or later installed  
 npm 11.6.0 installed  
+git v2.51.0 x64
