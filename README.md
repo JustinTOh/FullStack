@@ -9,6 +9,3 @@ Utilized NPM's package tool npx to create a simple next.js application. Created 
 - next.js
 - node.js
 - mongodb
-
-command I used to create "my-app" directory
--  npx create-next-app@latest my-next-app
