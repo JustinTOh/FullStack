@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
-export default function User() {
+export default function Student() {
   const [form, setForm] = useState({
     name: "",
     position: "",
@@ -17,20 +17,20 @@ export default function User() {
       if(!id) return;
       setIsNew(false);
       const response = await fetch(
-        `http://localhost:5050/user/${params.id.toString()}`
+        `http://localhost:5050/student/${params.id.toString()}`
       );
       if (!response.ok) {
         const message = `An error has occurred: ${response.statusText}`;
         console.error(message);
         return;
       }
-      const user = await response.json();
-      if (!user) {
-        console.warn(`User with id ${id} not found`);
+      const student = await response.json();
+      if (!student) {
+        console.warn(`Student with id ${id} not found`);
         navigate("/");
         return;
       }
-      setForm(user);
+      setForm(student);
     }
     fetchData();
     return;
@@ -50,8 +50,8 @@ export default function User() {
     try {
       let response;
       if (isNew) {
-        // if we are adding a new user we will POST to /user.
-        response = await fetch("http://localhost:5050/user", {
+        // if we are adding a new student we will POST to /student.
+        response = await fetch("http://localhost:5050/student", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -59,8 +59,8 @@ export default function User() {
           body: JSON.stringify(person),
         });
       } else {
-        // if we are updating a user we will PATCH to /user/:id.
-        response = await fetch(`http://localhost:5050/user/${params.id}`, {
+        // if we are updating a student we will PATCH to /student/:id.
+        response = await fetch(`http://localhost:5050/student/${params.id}`, {
           method: "PATCH",
           headers: {
             "Content-Type": "application/json",
@@ -80,10 +80,10 @@ export default function User() {
     }
   }
 
-  // This following section will display the form that takes the input from the user.
+  // This following section will display the form that takes the input from the student.
   return (
     <>
-      <h3 className="text-lg font-semibold p-4">Create/Update Employee User</h3>
+      <h3 className="text-lg font-semibold p-4">Create/Update Employee Student</h3>
       <form
         onSubmit={onSubmit}
         className="border rounded-lg overflow-hidden p-4"
@@ -200,7 +200,7 @@ export default function User() {
         </div>
         <input
           type="submit"
-          value="Save Employee User"
+          value="Save Employee Student"
           className="inline-flex items-center justify-center whitespace-nowrap text-md font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 hover:text-accent-foreground h-9 rounded-md px-3 cursor-pointer mt-4"
         />
       </form>

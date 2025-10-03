@@ -8,19 +8,19 @@ import { ObjectId } from "mongodb";
 
 // router is an instance of the express router.
 // We use it to define our routes.
-// The router will be added as a middleware and will take control of requests starting with path /users.
+// The router will be added as a middleware and will take control of requests starting with path /students.
 const router = express.Router();
 
-// This section will help you get a list of all the userss.
+// This section will help you get a list of all the studentss.
 router.get("/", async (req, res) => {
-  let collection = await db.collection("users");
+  let collection = await db.collection("students");
   let results = await collection.find({}).toArray();
   res.send(results).status(200);
 });
 
-// This section will help you get a single users by id
+// This section will help you get a single students by id
 router.get("/:id", async (req, res) => {
-  let collection = await db.collection("users");
+  let collection = await db.collection("students");
   let query = { _id: new ObjectId(req.params.id) };
   let result = await collection.findOne(query);
 
@@ -28,7 +28,7 @@ router.get("/:id", async (req, res) => {
   else res.send(result).status(200);
 });
 
-// This section will help you create a new users.
+// This section will help you create a new students.
 router.post("/", async (req, res) => {
   try {
     let newDocument = {
@@ -36,16 +36,16 @@ router.post("/", async (req, res) => {
       position: req.body.position,
       level: req.body.level,
     };
-    let collection = await db.collection("users");
+    let collection = await db.collection("students");
     let result = await collection.insertOne(newDocument);
     res.send(result).status(204);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error adding users");
+    res.status(500).send("Error adding students");
   }
 });
 
-// This section will help you update a users by id.
+// This section will help you update a students by id.
 router.patch("/:id", async (req, res) => {
   try {
     const query = { _id: new ObjectId(req.params.id) };
@@ -57,27 +57,27 @@ router.patch("/:id", async (req, res) => {
       },
     };
 
-    let collection = await db.collection("users");
+    let collection = await db.collection("students");
     let result = await collection.updateOne(query, updates);
     res.send(result).status(200);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error updating users");
+    res.status(500).send("Error updating students");
   }
 });
 
-// This section will help you delete a users
+// This section will help you delete a students
 router.delete("/:id", async (req, res) => {
   try {
     const query = { _id: new ObjectId(req.params.id) };
 
-    const collection = db.collection("users");
+    const collection = db.collection("students");
     let result = await collection.deleteOne(query);
 
     res.send(result).status(200);
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error deleting users");
+    res.status(500).send("Error deleting students");
   }
 });
 

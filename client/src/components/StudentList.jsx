@@ -1,22 +1,22 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const User = (props) => (
+const Student = (props) => (
   <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      {props.user.name}
+      {props.student.name}
     </td>
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      {props.user.position}
+      {props.student.position}
     </td>
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
-      {props.user.level}
+      {props.student.level}
     </td>
     <td className="p-4 align-middle [&:has([role=checkbox])]:pr-0">
       <div className="flex gap-2">
         <Link
           className="inline-flex items-center justify-center whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-slate-100 h-9 rounded-md px-3"
-          to={`/edit/${props.user._id}`}
+          to={`/edit/${props.student._id}`}
         >
           Edit
         </Link>
@@ -25,7 +25,7 @@ const User = (props) => (
           color="red"
           type="button"
           onClick={() => {
-            props.deleteUser(props.user._id);
+            props.deleteStudent(props.student._id);
           }}
         >
           Delete
@@ -35,51 +35,51 @@ const User = (props) => (
   </tr>
 );
 
-export default function UserList() {
-  const [users, setUsers] = useState([]);
+export default function StudentList() {
+  const [students, setStudents] = useState([]);
 
-  // This method fetches the users from the database.
+  // This method fetches the students from the database.
   useEffect(() => {
-    async function getUsers() {
-      const response = await fetch(`http://localhost:5050/user/`);
+    async function getStudents() {
+      const response = await fetch(`http://localhost:5050/student/`);
       if (!response.ok) {
         const message = `An error occurred: ${response.statusText}`;
         console.error(message);
         return;
       }
-      const users = await response.json();
-      setUsers(users);
+      const students = await response.json();
+      setStudents(students);
     }
-    getUsers();
+    getStudents();
     return;
-  }, [users.length]);
+  }, [students.length]);
 
-  // This method will delete a user
-  async function deleteUser(id) {
-    await fetch(`http://localhost:5050/user/${id}`, {
+  // This method will delete a student
+  async function deleteStudent(id) {
+    await fetch(`http://localhost:5050/student/${id}`, {
       method: "DELETE",
     });
-    const newUsers = users.filter((el) => el._id !== id);
-    setUsers(newUsers);
+    const newStudents = students.filter((el) => el._id !== id);
+    setStudents(newStudents);
   }
 
-  // This method will map out the users on the table
-  function userList() {
-    return users.map((user) => {
+  // This method will map out the students on the table
+  function studentList() {
+    return students.map((student) => {
       return (
-        <User
-          user={user}
-          deleteUser={() => deleteUser(user._id)}
-          key={user._id}
+        <Student
+          student={student}
+          deleteStudent={() => deleteStudent(student._id)}
+          key={student._id}
         />
       );
     });
   }
 
-  // This following section will display the table with the users of individuals.
+  // This following section will display the table with the students of individuals.
   return (
     <>
-      <h3 className="text-lg font-semibold p-4">User Users</h3>
+      <h3 className="text-lg font-semibold p-4">Student Students</h3>
       <div className="border rounded-lg overflow-hidden">
         <div className="relative w-full overflow-auto">
           <table className="w-full caption-bottom text-sm">
@@ -100,7 +100,7 @@ export default function UserList() {
               </tr>
             </thead>
             <tbody className="[&_tr:last-child]:border-0">
-              {userList()}
+              {studentList()}
             </tbody>
           </table>
         </div>
