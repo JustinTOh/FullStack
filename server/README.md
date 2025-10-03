@@ -3,7 +3,7 @@
 
 `npm install`
 
-2. configure `config.env` with connection string and port.
+2. configure `config.env` with your mongodb connection string and port.
 
 3. run your node server backend.  
 
