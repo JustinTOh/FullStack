@@ -5,8 +5,8 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import App from "./App";
-import User from "./components/User";
-import UserList from "./components/UserList";
+import Student from "./components/Student";
+import StudentList from "./components/StudentList";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <UserList />,
+        element: <StudentList />,
       },
     ],
   },
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/edit/:id",
-        element: <User />,
+        element: <Student />,
       },
     ],
   },
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/create",
-        element: <User />,
+        element: <Student />,
       },
     ],
   },
